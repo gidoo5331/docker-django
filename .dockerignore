@@ -1,8 +1,8 @@
-__pycache__
-.dockerignore
-Dockerfile
-docker-compose.yml
-*.pyc
-*.pyo
-*.pyd
-*.git
+# __pycache__
+# .dockerignore
+# Dockerfile
+# docker-compose.yml
+# *.pyc
+# *.pyo
+# *.pyd
+# *.git

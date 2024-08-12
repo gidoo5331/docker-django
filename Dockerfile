@@ -15,5 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the project files into the container
 COPY . .
 
-# Run the Django server
-CMD ["gunicorn", "dockerDjango.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Final stage (for smaller image size)
+# FROM base as final
+# COPY --from=base /app /app
+# CMD ["gunicorn", "dockerDjango.wsgi:application", "--bind", "0.0.0.0:8000"]
