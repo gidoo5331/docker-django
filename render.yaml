@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: my-django-app
+    env: docker
+    plan: free
+    buildCommand: ""
+    startCommand: gunicorn dockerDjango.wsgi:application --bind 0.0.0.0:8000
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: SECRET_KEY
+        value: "your_production_secret_key"
+      - key: DEBUG
+        value: "False"
+      - key: DB_NAME
+        value: "prod_database"
+      - key: DB_USER
+        value: "prod_user"
+      - key: DB_PASSWORD
+        value: "prod_password"
+      - key: DB_HOST
+        value: "your-database-render-url"
+      - key: DB_PORT
+        value: "5432"
+
+  - type: database
+    name: my-postgres-db
+    plan: free
+    engine: postgres
+    envVars:
+      - key: POSTGRES_DB
+        value: "prod_database"
+      - key: POSTGRES_USER
+        value: "prod_user"
+      - key: POSTGRES_PASSWORD
+        value: "prod_password"
+
+  - type: web
+    name: pgadmin
+    env: docker
+    plan: free
+    buildCommand: ""
+    startCommand: |
+      docker run -p 8080:80 \
+        -e PGADMIN_DEFAULT_EMAIL=admin@example.com \
+        -e PGADMIN_DEFAULT_PASSWORD=admin \
+        dpage/pgadmin4
+    dockerfilePath: Dockerfile
